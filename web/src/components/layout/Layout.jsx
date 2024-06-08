@@ -9,8 +9,8 @@ import { useEffect } from "react";
 
 const Layout = (props) => {
   const navigate = useNavigate();
-  const role = localStorage.getItem("role");
-  console.log(role);
+  //const role = localStorage.getItem("role");
+  //console.log(role);
 
 //   useEffect(() => {
 //     if (localStorage.getItem("tin") === null) {
