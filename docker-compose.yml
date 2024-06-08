@@ -1,0 +1,99 @@
+#version: '3.8'
+#
+#services:
+#  postgres:
+#    image: postgres
+#    container_name: postgresql-db
+#    restart: always
+#    ports:
+#      - "5432:5432"
+#    environment:
+#      POSTGRES_DB: pms8   # Change this to your desired database name
+#      POSTGRES_USER: admin # Change this to your desired username
+#      POSTGRES_PASSWORD: admin # Change this to your desired password
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#
+#volumes:
+#  postgres_data:
+#version: '3.8'
+#services:
+#  db:
+#    image: postgres:latest
+#    environment:
+#      POSTGRES_DB: pms8
+#      POSTGRES_USER: admin
+#      POSTGRES_PASSWORD: admin
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - postgres-data:/var/lib/postgresql/data
+#
+#  backend:
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - db
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/pms8
+#      SPRING_DATASOURCE_USERNAME: admin
+#      SPRING_DATASOURCE_PASSWORD: admin
+#    networks:
+#      - app-network
+#
+#  frontend:
+#    build:
+#      context: ./frontend
+#      dockerfile: Dockerfile
+#    ports:
+#      - "3000:3000"
+#    environment:
+#      REACT_APP_BACKEND_URL: http://backend:8080
+#    depends_on:
+#      - backend
+#    networks:
+#      - app-network
+#
+#volumes:
+#  postgres-data:
+#
+#networks:
+#  app-network:
+
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgresql-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: pms8
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    ports:
+      - "8180:8080"  # Map container port 8080 to host port 8180
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://postgresql-db:5432/pms8
+      - KC_DB_USERNAME=admin
+      - KC_DB_PASSWORD=admin
+    command:
+      - "start-dev"
+
+volumes:
+  postgres_data:
+
