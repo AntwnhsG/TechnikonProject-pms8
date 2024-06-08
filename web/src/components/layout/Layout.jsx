@@ -12,15 +12,15 @@ const Layout = (props) => {
   const role = localStorage.getItem("role");
   console.log(role);
 
-  useEffect(() => {
-    if (localStorage.getItem("tin") === null) {
-      navigate("/");
-    }
-  }, []);
+//   useEffect(() => {
+//     if (localStorage.getItem("tin") === null) {
+//       navigate("/");
+//     }
+//   }, []);
 
   console.log(localStorage.getItem("tin"));
-  if (localStorage.getItem("tin") != null) {
-    if (role === "user") {
+  //if (localStorage.getItem("tin") != null) {
+    //if (role === "user") {
       return (
         <div className="Layout">
           <Navbar />
@@ -31,18 +31,18 @@ const Layout = (props) => {
           </main>
         </div>
       );
-    }else{
-      return (
-        <div className="Layout">
-          <NavBarAdmin />
-          <TabMenuAdmin />
-          <main>
-            <Outlet />
-          </main>
-        </div>
-      );
-    }
-  }
+//     }else{
+//       return (
+//         <div className="Layout">
+//           <NavBarAdmin />
+//           <TabMenuAdmin />
+//           <main>
+//             <Outlet />
+//           </main>
+//         </div>
+//       );
+//     }
+  //}
 };
 
 export default Layout;
