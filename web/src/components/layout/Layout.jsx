@@ -10,7 +10,7 @@ import { useEffect } from "react";
 const Layout = (props) => {
   const navigate = useNavigate();
   const { keycloak } = props;
-  const role = null;
+  let role = null;
 
   if (keycloak.authenticated) {
     const token = keycloak.token;
@@ -22,7 +22,7 @@ const Layout = (props) => {
     const resourceAccess = decodedToken.resource_access;
 
   // Assuming you have a specific client ID for your application
-    const role = resourceAccess['front-end-app'].roles[0];
+    role = resourceAccess['front-end-app'].roles[0];
   console.log('User Role:', role);
 }
 
@@ -48,7 +48,7 @@ const Layout = (props) => {
           </main>
         </div>
       );
-    }else{
+    }else if(role === "admin"){
       return (
         <div className="Layout">
           <NavBarAdmin />
