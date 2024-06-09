@@ -75,7 +75,6 @@ public class WebUserController extends BaseController<WebUser, WebUserResource> 
         WebUser newUserAdded = new WebUser();
         newUserAdded = webUserService.readWebUser(webUser.getTin());
         if (newUserAdded == null){
-            //newUserAdded = webUserService.create(getMapper().toDomain(webUser));
             return new ResponseEntity<>(
                     ApiResponse.<WebUserResource>builder().data(
                             getMapper().toResource(
@@ -89,9 +88,6 @@ public class WebUserController extends BaseController<WebUser, WebUserResource> 
                             getMapper().toResource(newUserAdded)).build(),
                     HttpStatus.CREATED);
         }
-//        ApiResponse.<WebUser>builder().data(newUserAdded).build();
-//        return new ResponseEntity<>(
-//                ApiResponse.<WebUser>builder().data(newUserAdded).build(), HttpStatus.CREATED);
     }
 
 }

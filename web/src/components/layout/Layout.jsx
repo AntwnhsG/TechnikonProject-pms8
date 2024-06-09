@@ -58,9 +58,6 @@ const Layout = (props) => {
             })
         }
     })
-    .then((response) => {
-        console.log(response.data);
-    })
     .catch((error) => {
         console.log(error);
     });
@@ -69,7 +66,7 @@ const Layout = (props) => {
     if (role === "user") {
       return (
             <div className="Layout">
-            <Navbar />
+            <Navbar keycloak = {keycloak}/>
             <TabMenu />
             <main>
           
@@ -80,7 +77,7 @@ const Layout = (props) => {
         }else if(role === "admin"){
         return (
             <div className="Layout">
-             <NavBarAdmin />
+             <NavBarAdmin keycloak = {keycloak}/>
             <TabMenuAdmin />
             <main>
              <Outlet />

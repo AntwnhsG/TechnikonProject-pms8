@@ -10,7 +10,7 @@ import menuDot from "../../img/menu-dots-vert.png";
 
 
 
-function Navbar() {
+function Navbar( { keycloak }) {
 
     const [searchInput, setSearchInput] = useState("");
 
@@ -21,6 +21,8 @@ function Navbar() {
 
     const logOut = () => {
         localStorage.removeItem("user")
+        keycloak.logout();
+        keycloak.session.destroy();
     }
 
 
