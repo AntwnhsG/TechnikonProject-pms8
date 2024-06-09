@@ -23,7 +23,8 @@ import { Link } from "react-router-dom";
 
 
 const PropertyCard = () => {
-  const tin = localStorage.getItem("tin");
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const tin = userData.tin;
   const [properties, setProperties] = useState([]);
   const [propertyId, setPropertyId] = useState(1);
   const [propertyE9,setPropertyE9] = useState(1)

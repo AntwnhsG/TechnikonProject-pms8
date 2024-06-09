@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { retrievePropertyByE9Api, updatePropertyApi } from "../../api/PropertyApiService";
 
 const EditProperty = ({ showModal, toggleModal,e9 }) => {
+  const userData = JSON.parse(localStorage.getItem('user'))
   const [property, setProperty] = useState({
     e9Number: "",
     yearOfConstruction: "",
@@ -47,7 +48,7 @@ const EditProperty = ({ showModal, toggleModal,e9 }) => {
       setProperty((prevState) => ({ ...prevState, [name]: value }));
     }
     setProperty((prevState) => ({...prevState,
-      webUser: {...prevState.webUser,id:localStorage.getItem("id")}}))
+      webUser: {...prevState.webUser,id:userData.id}}))
     console.log(event.target.name)
   };
 
@@ -107,7 +108,7 @@ const EditProperty = ({ showModal, toggleModal,e9 }) => {
                     type="number"
                     placeholder="Name: e.g. John"
                     name="e9Number"
-                    value={property.e9Number}
+                    value={property?.e9Number}
                     onChange={(e) => onInputChange(e)}
                     style={{
                       border: "1px",
@@ -140,7 +141,7 @@ const EditProperty = ({ showModal, toggleModal,e9 }) => {
                     type="date"
                     placeholder="Last Name e.g Williams"
                     name="yearOfConstruction"
-                    value={property.yearOfConstruction}
+                    value={property?.yearOfConstruction}
                     onChange={(e) => onInputChange(e)}
                     style={{
                       border: "1px",
@@ -175,7 +176,7 @@ const EditProperty = ({ showModal, toggleModal,e9 }) => {
                         type="text"
                         placeholder="Street Name e.g. Omirou"
                         name="street"
-                        value={property.address.street}
+                        value={property?.address.street}
                         onChange={(e) => onInputChange(e)}
                         style={{
                           border: "1px",
@@ -193,7 +194,7 @@ const EditProperty = ({ showModal, toggleModal,e9 }) => {
                         type="number"
                         placeholder="Sreet Number e.g. 8"
                         name="number"
-                        value={property.address.number}
+                        value={property?.address.number}
                         onChange={(e) => onInputChange(e)}
                         style={{
                           border: "1px",
@@ -211,7 +212,7 @@ const EditProperty = ({ showModal, toggleModal,e9 }) => {
                         type="number"
                         placeholder="Postal Code e.g. 15400"
                         name="pc"
-                        value={property.address.pc}
+                        value={property?.address.pc}
                         onChange={(e) => onInputChange(e)}
                         style={{
                           border: "1px",
@@ -229,7 +230,7 @@ const EditProperty = ({ showModal, toggleModal,e9 }) => {
                         type="text"
                         placeholder="City e.g. Athens"
                         name="city"
-                        value={property.address.city}
+                        value={property?.address.city}
                         onChange={(e) => onInputChange(e)}
                         style={{
                           border: "1px",

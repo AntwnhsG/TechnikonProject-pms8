@@ -16,3 +16,5 @@ export const createUserApi = (user) => apiClient.post('/users', user);
 export const countUsersApi = () => apiClient.get('/users/count');
 
 export const loginUserApi = (props) => apiClient.get(`/login?username=${props.username}&password=${props.password}`)
+
+export const addUserToDB = (loggedUser) => apiClient.post('/users/checkNewUser', loggedUser)

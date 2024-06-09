@@ -17,7 +17,8 @@ const ListOfUsers = () => {
   const [users, setUsers] = useState([]);
   const [userToDelete,setUserToDelete]= useState([]);
   const[showModalEdit,setShowModalEdit]=useState(false);
-  const [userId,setUserid]=useState(localStorage.getItem("id"))
+  const userData = JSON.parse(localStorage.getItem('user'))
+  const [userId,setUserid]=useState(userData.id)
   const [loading,setLoading]=useState(false)
 
   const getUsers = () => {
@@ -75,7 +76,6 @@ const ListOfUsers = () => {
       <div style={{ columnCount: "6", marginTop: "40px", marginLeft: "50px" }}>
         <h6>Name</h6>
         <h6>Surname</h6>
-        <h6>Phone Number</h6>
         <h6>E-mail</h6>
         <h6>Tax ID Number</h6>
         <h6>Actions</h6>
@@ -93,21 +93,18 @@ const ListOfUsers = () => {
                   <td style={{ border: "0", width: "326px" }}>
                     {user.firstName}
                   </td>
-                  <td style={{ border: "0", width: "310px" }}>
+                  <td style={{ border: "0", marginLeft: "150px", width: "310px" }}>
                     {user.surname}
                   </td>
-                  <td style={{ border: "0", width: "286px" }}>
-                    <div style={{ marginLeft: "10px" }}>{user.phoneNumber}</div>
+                  <td style={{ border: "0", marginLeft: "200px", width: "286px" }}>{user.email}</td>
+                  <td style={{ border: "0", width: "-2088px" }}>
+                    <div style={{ marginLeft: "100px" }}>{user.tin}</div>
                   </td>
-                  <td style={{ border: "0", width: "286px" }}>{user.email}</td>
-                  <td style={{ border: "0", width: "288px" }}>
-                    <div style={{ marginLeft: "50px" }}>{user.tin}</div>
-                  </td>
-                  <td style={{ border: "0", width: "286px" }}>
+                  <td style={{ border: "0", width: "1086px" }}>
                     <button
                     onClick={()=>setId(user.id)}
                       style={{
-                        marginLeft: "50px",
+                        marginLeft: "300px",
                         marginRight: "10px",
                         border: "0",
                         background: "white",
@@ -118,7 +115,7 @@ const ListOfUsers = () => {
                     <button
                       onClick={() => deactivateUser(user.id)}
                       style={{
-                        marginRight: "20px",
+                        marginRight: "-120px",
                         background: "white",
                         border: "0",
                       }}

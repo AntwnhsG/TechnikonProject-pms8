@@ -38,7 +38,6 @@ public class WebUserServiceImpl extends BaseServiceImpl<WebUser> implements WebU
 
         WebUser webUserOld = webUserRepository.findById(webUser.getId()).orElseThrow();
         webUserOld.setEmail(updateUserEmail(webUser, webUserOld));
-        webUserOld.setPassword(updateUserPassword(webUser, webUserOld));
         webUserOld.setFirstName(updateUserName(webUser, webUserOld));
         webUserOld.setAddress(webUser.getAddress());
         return webUserRepository.save(webUserOld);
@@ -50,13 +49,6 @@ public class WebUserServiceImpl extends BaseServiceImpl<WebUser> implements WebU
             return webUserNew.getFirstName();
         }
         return webUserOld.getFirstName();
-    }
-
-    private String updateUserPassword(WebUser webUserOld, WebUser webUserNew) {
-        if (!webUserNew.getPassword().isEmpty() &&
-                !webUserNew.getPassword().equals(webUserOld.getPassword()))
-            return webUserOld.getPassword();
-        return webUserNew.getPassword();
     }
 
     private String updateUserEmail(WebUser webUserNew, WebUser webUserOld) {
@@ -73,11 +65,6 @@ public class WebUserServiceImpl extends BaseServiceImpl<WebUser> implements WebU
         if (checkNullability(webUser)) {
             webUserRepository.deleteByTin(tin);
         }
-    }
-
-    @Override
-    public WebUser userLogin(String username, String password) {
-        return webUserRepository.readWebUserByUsernameAndPassword(username, password);
     }
 
     private boolean checkNullability(WebUser webUser) {

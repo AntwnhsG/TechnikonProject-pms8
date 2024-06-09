@@ -8,6 +8,7 @@ import com.example.technikonproject.service.WebUserService;
 import com.example.technikonproject.transfer.ApiResponse;
 import com.example.technikonproject.transfer.resource.webuser.WebUserResource;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,6 +68,30 @@ public class WebUserController extends BaseController<WebUser, WebUserResource> 
         return ResponseEntity.ok(
                 ApiResponse.<Long>builder().data((webUserService.count()))
                         .build());
+    }
+
+    @PostMapping("checkNewUser")
+    public ResponseEntity<ApiResponse<WebUserResource>> checkNewUser(@RequestBody WebUserResource webUser){
+        WebUser newUserAdded = new WebUser();
+        newUserAdded = webUserService.readWebUser(webUser.getTin());
+        if (newUserAdded == null){
+            //newUserAdded = webUserService.create(getMapper().toDomain(webUser));
+            return new ResponseEntity<>(
+                    ApiResponse.<WebUserResource>builder().data(
+                            getMapper().toResource(
+                                    getBaseService().create(getMapper().toDomain(webUser))
+                            )
+                    ).build(),
+                    HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<>(
+                    ApiResponse.<WebUserResource>builder().data(
+                            getMapper().toResource(newUserAdded)).build(),
+                    HttpStatus.CREATED);
+        }
+//        ApiResponse.<WebUser>builder().data(newUserAdded).build();
+//        return new ResponseEntity<>(
+//                ApiResponse.<WebUser>builder().data(newUserAdded).build(), HttpStatus.CREATED);
     }
 
 }

@@ -4,6 +4,7 @@ import { Modal, Form, Button, Row, Col} from "react-bootstrap";
 import { createPropertyApi } from "../../api/PropertyApiService";
 
 const AddProperty = ({ showModal, toggleModal }) => {
+  const userData = JSON.parse(localStorage.getItem('user'));
   const [property, setProperty] = useState({
     e9Number: "",
     yearOfConstruction: "",
@@ -36,7 +37,7 @@ const AddProperty = ({ showModal, toggleModal }) => {
       setProperty((prevState) => ({ ...prevState, [name]: value }));
     }
     setProperty((prevState) => ({...prevState,
-      webUser: {...prevState.webUser,id:localStorage.getItem("id")}}))
+      webUser: {...prevState.webUser,id:userData.id}}))
     console.log(event.target.name)
   };
 

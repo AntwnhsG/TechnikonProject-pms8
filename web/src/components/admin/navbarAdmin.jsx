@@ -25,8 +25,7 @@ function NavbarAdmin() {
     };
 
     const logOut = () => {
-        localStorage.removeItem("id")
-        localStorage.removeItem("tin")
+        localStorage.removeItem("user")
     }
 
     const toggleModalAdmin = () =>{

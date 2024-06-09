@@ -8,7 +8,7 @@ const EditCard = ({ showModal, toggleModal }) => {
     const [user, setUser] = useState({
         tin: "",
         firstName: "",
-        surname: "",
+        lastName: "",
         email: "",
         phoneNumber: "",
         username: "",
@@ -27,7 +27,8 @@ const EditCard = ({ showModal, toggleModal }) => {
       }, []);
     
       const getUser= async()=>{
-        await retrieveUserApi(localStorage.getItem("id"))
+        const userData = JSON.parse(localStorage.getItem('user'));
+        await retrieveUserApi(userData.id)
         .then((response)=>{setUser(response.data.data)})
       }
 
@@ -117,7 +118,7 @@ const EditCard = ({ showModal, toggleModal }) => {
                         marginBottom: "18px",
                       }}
                   >
-                    <Form.Group key="surname" style={{}}>
+                    <Form.Group key="lastName" style={{}}>
                       <Form.Label
                         style={{
                           marginBottom: "0px",
@@ -131,7 +132,7 @@ const EditCard = ({ showModal, toggleModal }) => {
                       disabled
                         type="text"
                         placeholder="Last Name e.g Williams"
-                        name="surname"
+                        name="Last Name"
                         value={user.surname}
                         onChange={(e) => onInputChange(e)}
                         style={{
@@ -143,132 +144,6 @@ const EditCard = ({ showModal, toggleModal }) => {
                         }}
                       />
                     </Form.Group>
-                  </div>
-                  <div
-                    style={{
-                        width: "502px",
-                        height: "80px",
-                        marginBottom: "18px",
-                      }}
-                  >
-                    <Form.Group key="phoneNumber" style={{}}>
-                      <Form.Label
-                        style={{
-                          marginBottom: "0px",
-                          paddingLeft: "4px",
-                          paddingRight: "4px",
-                        }}
-                      >
-                        
-                        Phone Number
-                      </Form.Label>
-                      <Form.Control
-                      disabled
-                        type="number"
-                        placeholder="e.g. 0123456789"
-                        name="phoneNumber"
-                        value={user.phoneNumber}
-                        onChange={(e) => onInputChange(e)}
-                        style={{
-                          border: "1px",
-                          paddingTop: "8px",
-                          paddingBottom: "8px",
-                          paddingLeft: "16px",
-                          paddingRight: "16px",
-                        }}
-                      />
-                    </Form.Group>
-                  </div>
-                  <div
-                    style={{
-                      width: "502px",
-                      height: "80px",
-                      marginBottom: "18px",
-                    }}
-                  >
-                    <Form.Label
-                      style={{
-                        marginBottom: "0px",
-                        paddingLeft: "4px",
-                        paddingRight: "4px",
-                      }}
-                    >
-                      Address
-                    </Form.Label>
-                    <div style={{ columnCount: "4" }}>
-                      <div className="address">
-                        <Form.Group key="street" style={{}}>
-                          <Form.Control
-                            type="text"
-                            placeholder="Street Name e.g. Omirou"
-                            name="street"
-                            value={user.address.street}
-                            onChange={(e) => onInputChange(e)}
-                            style={{
-                              border: "1px",
-                              paddingTop: "8px",
-                              paddingBottom: "8px",
-                              paddingLeft: "16px",
-                              paddingRight: "16px",
-                            }}
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="address">
-                        <Form.Group key="streetNumber" style={{}}>
-                          <Form.Control
-                            type="number"
-                            placeholder="Sreet Number e.g. 8"
-                            name="number"
-                            value={user.address.number}
-                            onChange={(e) => onInputChange(e)}
-                            style={{
-                              border: "1px",
-                              paddingTop: "8px",
-                              paddingBottom: "8px",
-                              paddingLeft: "16px",
-                              paddingRight: "16px",
-                            }}
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="address">
-                        <Form.Group key="pc" style={{}}>
-                          <Form.Control
-                            type="number"
-                            placeholder="Postal Code e.g. 15400"
-                            name="pc"
-                            value={user.address.pc}
-                            onChange={(e) => onInputChange(e)}
-                            style={{
-                              border: "1px",
-                              paddingTop: "8px",
-                              paddingBottom: "8px",
-                              paddingLeft: "16px",
-                              paddingRight: "16px",
-                            }}
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="address">
-                        <Form.Group key="city" style={{}}>
-                          <Form.Control
-                            type="text"
-                            placeholder="City e.g. Athens"
-                            name="city"
-                            value={user.address.city}
-                            onChange={(e) => onInputChange(e)}
-                            style={{
-                              border: "1px",
-                              paddingTop: "8px",
-                              paddingBottom: "8px",
-                              paddingLeft: "16px",
-                              paddingRight: "16px",
-                            }}
-                          />
-                        </Form.Group>
-                      </div>
-                    </div>
                   </div>
                   <div
                     style={{
@@ -368,38 +243,6 @@ const EditCard = ({ showModal, toggleModal }) => {
                       />
                     </Form.Group>
                   </div>
-                  <div
-                  style={{
-                    width: "502px",
-                    height: "80px",
-                    marginBottom: "18px",
-                  }}>
-                    <Form.Group key="password" style={{}}>
-                      <Form.Label
-                        style={{
-                          marginBottom: "0px",
-                          paddingLeft: "4px",
-                          paddingRight: "4px",
-                        }}
-                      >
-                        Password
-                      </Form.Label>
-                      <Form.Control
-                        type="password"
-                        placeholder="Your password"
-                        name="password"
-                        value={user.password}
-                        onChange={(e) => onInputChange(e)}
-                        style={{
-                          border: "1px",
-                          paddingTop: "8px",
-                          paddingBottom: "8px",
-                          paddingLeft: "16px",
-                          paddingRight: "16px",
-                        }}
-                      />
-                    </Form.Group>
-                  </div>
                 </Form>
               </Modal.Body>
     
@@ -419,7 +262,7 @@ const EditCard = ({ showModal, toggleModal }) => {
                 <Button
                   className="cancel"
                   variant="secondary"
-                  onClick={toggleModal()}
+                  onClick={toggleModal}
                   style={{
                     background: "transparent",
                     borderColor: "#0F46CE",

@@ -7,7 +7,7 @@ import { createRepairApi } from "../../api/RepairApiService";
 import { Row, Col } from "react-bootstrap";
 
 const AddRepair = ({ showModal, toggleModal, id }) => {
-  
+  const userData = JSON.parse(localStorage.getItem('user'));
   const [repair, setRepair] = useState({
     description: "",
     dateOfScheduledRepair: "",
@@ -30,7 +30,7 @@ const AddRepair = ({ showModal, toggleModal, id }) => {
 
     setRepair((prevState) => ({
       ...prevState,
-      webUser: { ...prevState.webUser, id: localStorage.getItem("id") },
+      webUser: { ...prevState.webUser, id: userData.id },
     }));
     setRepair((prevState) => ({
       ...prevState,

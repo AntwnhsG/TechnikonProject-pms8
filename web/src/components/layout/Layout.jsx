@@ -5,12 +5,38 @@ import TabMenuAdmin from "../admin/TabMenuAdmin";
 import Navbar from "../listOfUsers/user/navbar";
 import NavBarAdmin from "../admin/navbarAdmin"
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
+import { addUserToDB } from "../../api/UserApiService";
+
+const UserContext = createContext();
+
+export const useUser = () => useContext(UserContext);
 
 const Layout = (props) => {
   const navigate = useNavigate();
   const { keycloak } = props;
+  const [user, setUser] = useState(null);
+
   let role = null;
+  const loadUserProfile = async (keycloak) => {
+    if (keycloak && keycloak.authenticated) {
+      try {
+        const profile = await keycloak.loadUserProfile();
+        return {
+            tin: profile.attributes?.tin ? profile.attributes.tin[0] : "",
+            firstName: profile.firstName || "",
+            surname: profile.lastName || "",
+            email: profile.email || "",
+            username: profile.username || "",
+            role: role
+};
+      } catch (err) {
+        console.error('Failed to load user profile', err);
+        throw err;
+      }
+    }
+    throw new Error('Keycloak is not authenticated');
+  };
 
   if (keycloak.authenticated) {
     const token = keycloak.token;
@@ -21,45 +47,48 @@ const Layout = (props) => {
   // Extract user roles from the decoded token
     const resourceAccess = decodedToken.resource_access;
 
-  // Assuming you have a specific client ID for your application
     role = resourceAccess['front-end-app'].roles[0];
-  console.log('User Role:', role);
-}
+ }
+    loadUserProfile(keycloak)
+    .then((loggedUser) => {
+        if(user === null){
+            addUserToDB(loggedUser)
+            .then((response) => {
+                localStorage.setItem('user', JSON.stringify(response.data.data));
+            })
+        }
+    })
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 
-  //const role = localStorage.getItem("role");
-  //console.log(role);
-
-  useEffect(() => {
-    if (role) {
-      navigate("/");
-    }
-  }, []);
-
-  console.log(localStorage.getItem("tin"));
-  //if (localStorage.getItem("tin") != null) {
+  if (localStorage.getItem('user') !== null) {
     if (role === "user") {
       return (
-        <div className="Layout">
-          <Navbar />
-          <TabMenu />
-          <main>
+            <div className="Layout">
+            <Navbar />
+            <TabMenu />
+            <main>
           
-            <Outlet />
-          </main>
-        </div>
-      );
-    }else if(role === "admin"){
-      return (
-        <div className="Layout">
-          <NavBarAdmin />
-          <TabMenuAdmin />
-          <main>
-            <Outlet />
-          </main>
-        </div>
+                <Outlet />
+            </main>
+            </div>
+        );
+        }else if(role === "admin"){
+        return (
+            <div className="Layout">
+             <NavBarAdmin />
+            <TabMenuAdmin />
+            <main>
+             <Outlet />
+            </main>
+            </div>
       );
     }
-  //}
+  }
 };
 
 export default Layout;

@@ -31,7 +31,7 @@ public class WebUser extends BaseModel {
     @Embedded
     private Address address;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = false)
     @Digits(integer = 10,fraction = 0)
     private Long phoneNumber;
 
@@ -41,9 +41,6 @@ public class WebUser extends BaseModel {
 
     @Column(length = 20, unique = true, updatable = false)
     private String username;
-
-    @Column(nullable = false)
-    private String password;
 
     @Column(nullable = false)
     private String role;

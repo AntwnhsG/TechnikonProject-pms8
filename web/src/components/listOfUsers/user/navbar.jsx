@@ -20,8 +20,7 @@ function Navbar() {
     };
 
     const logOut = () => {
-        localStorage.removeItem("id")
-        localStorage.removeItem("tin")
+        localStorage.removeItem("user")
     }
 
 

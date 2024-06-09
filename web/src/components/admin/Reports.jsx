@@ -14,7 +14,8 @@ function Reports() {
   const [repairPropertiesReports, setRepairPropertiesReports] = useState([]);
   const [properties, setProperties] = useState([]);
   const [users, setUsers] = useState([]);
-  const [tin, setTin] = useState(localStorage.getItem("tin"));
+  const userData = JSON.parse(localStorage.getItem('user'))
+  const [tin, setTin] = useState(userData.tin);
   const [userId, setUserId] = useState();
 
   useEffect(() => {
