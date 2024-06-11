@@ -39,7 +39,6 @@ public class WebUserServiceImpl extends BaseServiceImpl<WebUser> implements WebU
         WebUser webUserOld = webUserRepository.findById(webUser.getId()).orElseThrow();
         webUserOld.setEmail(updateUserEmail(webUser, webUserOld));
         webUserOld.setFirstName(updateUserName(webUser, webUserOld));
-        webUserOld.setAddress(webUser.getAddress());
         return webUserRepository.save(webUserOld);
     }
 

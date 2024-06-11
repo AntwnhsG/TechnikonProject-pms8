@@ -1,7 +1,9 @@
 package com.example.technikonproject.domain;
 
-import com.example.technikonproject.domain.subDomain.Address;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -27,13 +29,6 @@ public class WebUser extends BaseModel {
 
     @Column(length = 50, nullable = false, updatable = false)
     private String surname;
-
-    @Embedded
-    private Address address;
-
-    @Column(nullable = true, updatable = false)
-    @Digits(integer = 10,fraction = 0)
-    private Long phoneNumber;
 
     @Email
     @Column(nullable = false, unique = true)

@@ -10,7 +10,5 @@ public class WebUserMedInfoResource extends BaseResource {
 
     private String surname;
 
-    private Long phoneNumber;
-
     private String email;
 }

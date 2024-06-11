@@ -72,8 +72,7 @@ public class WebUserController extends BaseController<WebUser, WebUserResource> 
 
     @PostMapping("checkNewUser")
     public ResponseEntity<ApiResponse<WebUserResource>> checkNewUser(@RequestBody WebUserResource webUser){
-        WebUser newUserAdded = new WebUser();
-        newUserAdded = webUserService.readWebUser(webUser.getTin());
+        WebUser newUserAdded = webUserService.readWebUser(webUser.getTin());
         if (newUserAdded == null){
             return new ResponseEntity<>(
                     ApiResponse.<WebUserResource>builder().data(

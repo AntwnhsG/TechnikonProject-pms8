@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class OpenApiConfig {
+public class SwaggerApiConfig {
 
     @Bean
     public GroupedOpenApi publicApi() {
