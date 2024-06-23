@@ -69,7 +69,7 @@ public class WebUserController extends BaseController<WebUser, WebUserResource> 
                 ApiResponse.<Long>builder().data((webUserService.count()))
                         .build());
     }
-
+    //@CrossOrigin(origins = "*", methods = {RequestMethod.POST, RequestMethod.OPTIONS})
     @PostMapping("checkNewUser")
     public ResponseEntity<ApiResponse<WebUserResource>> checkNewUser(@RequestBody WebUserResource webUser){
         WebUser newUserAdded = webUserService.readWebUser(webUser.getTin());

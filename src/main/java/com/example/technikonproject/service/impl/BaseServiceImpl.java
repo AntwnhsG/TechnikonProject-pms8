@@ -5,8 +5,12 @@ import com.example.technikonproject.domain.BaseModel;
 import com.example.technikonproject.service.BaseService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
-
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
+import java.util.Properties;
+import org.springframework.stereotype.Service;
 
 public abstract class BaseServiceImpl<T extends BaseModel> extends BaseComponent
         implements BaseService<T, Long> {

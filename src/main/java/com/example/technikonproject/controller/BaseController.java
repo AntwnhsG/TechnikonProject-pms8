@@ -2,6 +2,8 @@ package com.example.technikonproject.controller;
 
 import com.example.technikonproject.base.BaseComponent;
 import com.example.technikonproject.domain.BaseModel;
+import com.example.technikonproject.domain.Property;
+import com.example.technikonproject.domain.WebUser;
 import com.example.technikonproject.mapper.BaseMapper;
 import com.example.technikonproject.service.BaseService;
 import com.example.technikonproject.transfer.ApiResponse;
@@ -13,7 +15,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public abstract class BaseController<T extends BaseModel, R extends BaseResource> extends BaseComponent {
@@ -88,4 +97,5 @@ public abstract class BaseController<T extends BaseModel, R extends BaseResource
         headers.add("Content-Disposition", "attachment; filename=" + filename);
         return headers;
     }
+
 }
