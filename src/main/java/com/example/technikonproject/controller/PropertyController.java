@@ -73,7 +73,7 @@ public class PropertyController extends BaseController<Property, PropertyResourc
         String from = "Technikon@gg.com"; // change accordingly
 
         // Assuming you are sending email through localhost
-        String host = "localhost"; // Mailhog SMTP server
+        String host = "20.188.44.4"; // Mailhog SMTP server
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "false");
