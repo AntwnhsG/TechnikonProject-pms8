@@ -28,7 +28,7 @@ The only thing needed to run this application is a connection to a PostgreSQL da
 
 # Swagger
 
-Swagger end point documentation can be found here: 
+Swagger end-point documentation can be found here: http://<your IP/ URL>/swagger-ui/index.html 
 
 # Note!
 
