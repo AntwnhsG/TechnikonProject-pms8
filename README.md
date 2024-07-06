@@ -1,34 +1,35 @@
-# Project for Harokopio University MSc. 
-This Frontend application functions as the UI for a website that allows customers to manage their properties and register/ handle repairs or renovations regarding the said properties.
+# Project for Harokopio University MSc.
+
+This is a backend application, created using Spring Boot, Java, Maven, to be used for a project of Harokopio University MSc program.
+This application provides the means to handle/ service functionality to a frontend application (UI) regarding a website that is used for property management.
+This backend application provides CRUD operations and database connection and queries, to store user/ property information. 
+
+# Frameworks - Tools used for implementation
+
+The source code is written in Java using Spring Boot for Dependency Injection, API end point configuration and connection to Database.
+Also, there is a websocket implementation but currently it is not functional.
+The design pattern is a typical web application architecture that contains controllers, services, repositories, resource classes (DTOs) etc.
 
 # Requirements
 
-This application can function independently but will not show any UI because of Keycloak. In order to be functional, the application needs to connect with Keycloak (correctly configured as described below) and the Backend application found in the below URL. Also Kong is needed as an application gateway in oreder to hit the backend endpoints.
+To use this backend Java 17 must be installed in your system.
+Also PostgreSQL needs to be install or used from docker container in order to connect to a database.
+## Note that without a database connection this application will not run and the server will not be initialized.
+There is an application.propertie.yml file which you can configure to much your PostgreSQL configuration and connection parameters.
+Last, in the application properties file, for testing and development purposes the database is set to be re-created every time the server is run.
+This was done in order to gain important time from avoiding to clear the database tables each time a mistake was made or some new functionality was intoduced.
 
-Backend URL: https://github.com/AntwnhsG/TechnikonProject-pms8
-
-# Tools and Framework requirements
-
-1) To run the application NODE JS must be installed. Version of NODE JS: 20.15.0
-2) Keycloak needs to be installed or used from docker container.
-3) Kong needs to be installed or userd from docker container.
-   
 # Setup
 
-1) To setup this application, clone the repository from: https://github.com/AntwnhsG/Technikon_project_pms_frontEnd.git
+Clone the repository from here: https://github.com/AntwnhsG/TechnikonProject-pms8.git
 
-2) Keycloak is needed as decribed above. A realm need to be created, from the Admin UI of keycloak, named FrontEndRealm. Then a client needs to be created named front-end-app.
-   Create users and assign them roles. Important: the application expects 2 roles, one for user and one for admin. Any other role is not considered valid.
+The only thing needed to run this application is a connection to a PostgreSQL database and Java version 17. 
+## Note in classes WebConfiguration you must change the CORS origin to much your frontend's URL. Also in PropertyController class you must change the mailhog host to much yours.
 
-3) In Kong, CORS plugin needs to be created to accept this applications URL. Also the correct Kong service and routes need to be created as well. For service you can use your own host IP. But for routes if no changes are made to much yours, the ones that must be defined are:
-   a) /
-   b) /users
-   b) /property
-   d) /propertyRepair
+# Swagger
 
-5) From VScode (recommended), or any other IDE of your preference, in terminal run:
-  a) command: npm i (to install any required packages/ libraries).
-  b) command: npm start (to start the application).
+Swagger end point documentation can be found here: 
 
-# Note! 
-Master repository is now configured to run with IPs used for this project. To use you own you must configure files Api.jsx (for Kong) and Keycloak.jsx
+# Note!
+
+Master branch source code is configured to run specificly for the puproses of this project. You need to configure the files mentions above including the application.properties.yml to much yours if you need to make changes.
